@@ -1,0 +1,52 @@
+<form [formGroup]="crearEventoForm">
+    <div>
+      <label>Ciudad: </label>
+      <input type="text" formControlName="ciudad" />
+    </div>
+    <div>
+        <label>Imagen evento: </label>
+        <input type="file" (change)="onFileChange($event, 'portada')" />
+        </div>
+        <div>
+        <label>Imagen localidades: </label>
+        <input type="file" (change)="onFileChange($event, 'localidades')" />
+        </div>
+    <div>
+      <label>Nombre: </label>
+      <input type="text" formControlName="nombre" />
+    </div>
+    <div>
+      <label>Descripción: </label>
+      <textarea formControlName="descripcion"></textarea>
+    </div>
+    <div>
+      <label>Dirección: </label>
+      <input type="text" formControlName="direccion" />
+    </div>
+    <div>
+      <label>Tipo: </label>
+      <select formControlName="tipo">
+        <option value="">Seleccione un tipo</option>
+        @for (item of tiposDeEvento; track $index) {
+          <option value="{{item}}">{{item}}</option>
+        }
+      </select>
+    </div>
+    <!-- Sección para gestionar localidades -->
+    <div>
+      <h3>Localidades</h3>
+      <div formArrayName="localidades">
+        @for (localidad of localidadesArray.controls; track $index) {
+          <div [formGroupName]="$index">
+            <input formControlName="nombre" placeholder="Nombre localidad"/>
+            <input type="number" formControlName="precio" placeholder="Precio"/>
+            <input type="number" formControlName="cantidad" placeholder="Cantidad"/>
+            <button type="button" (click)="eliminarLocalidad($index)">Eliminar</button>
+          </div>
+        }
+      </div>
+      <button type="button" (click)="agregarLocalidad()">Agregar localidad</button>
+    </div>
+  
+    <button type="submit">Crear evento</button>
+  </form>

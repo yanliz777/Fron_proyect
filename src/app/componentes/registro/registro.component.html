@@ -1,0 +1,49 @@
+
+<!--   El formularioquedaatadoaunobjetodenombreregistroFormenelcontrolador,cadaelemento
+ del formulariose indicapormediode lapropiedadformControlName(quedebecoincidirconel
+ nombredecadaelementodentrodel objetoregistroFormdel controlador).
+
+[formGroup]="registroForm" : Esta es una directiva de Angular que enlaza el 
+formulario HTML con el FormGroup definido en
+el componente TypeScript.
+
+registroForm es el nombre del objeto del formulario que has creado con FormBuilder
+en el componente (RegistroComponent).
+Este enlace permite que Angular maneje el estado y las validaciones del formulario de manera 
+reactiva, detectando cambios en tiempo real y actualizando la vista y el modelo automáticamente.-->
+<form [formGroup]="registroForm" (ngSubmit)="registrar()" novalidate="">
+    <div>
+        <label>Cédula: </label>
+        <input type="text" formControlName="cedula" />
+    </div>
+    <div>
+        <label>Nombre: </label>
+        <input type="text" formControlName="nombre" />
+    </div>
+    <div>
+        <label>Email: </label>
+        <input type="email" formControlName="email" />
+    </div>
+    <div>
+        <label>Dirección: </label>
+        <input type="text" formControlName="direccion" />
+    </div>
+    <div>
+        <label>Teléfono: </label>
+        <input type="number" formControlName="telefono" />
+    </div>
+    <div>
+        <label>Contraseña: </label>
+        <input type="password" formControlName="password" />
+    </div>
+    <div>
+        <label>Repetir contraseña: </label>
+        <input type="password" formControlName="confirmaPassword" />
+    </div>
+    
+    @if (registroForm.hasError('passwordsMismatch')) {
+        <p>Las contraseñas no coinciden</p>
+        }
+    
+    <button type="submit" [disabled]="registroForm.invalid" >Registrarse</button>
+</form>
